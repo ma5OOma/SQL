@@ -1,0 +1,26 @@
+create a makeup store database
+
+
+CREATE TABLE makeup (id INTEGER PRIMARY KEY, name TEXT, brand TEXT, price INTEGER, quantity INTEGER);
+
+INSERT INTO makeup VALUES(1,"foundation","loreal",20,100);
+INSERT INTO makeup VALUES(2, "eyelashes","maybelline",10,80);
+INSERT INTO makeup VALUES(3,"mascara","bobby brown",50,120);
+INSERT INTO makeup VALUES(4, "Eye pallet","kiko milano",75,123);
+INSERT INTO makeup VALUES(5, "eye liner","dior",134,500);
+INSERT INTO makeup VALUES(6,"undereye cream","mac",200,146);
+INSERT INTO makeup VALUES(7,"serum","tarte",34,453);
+INSERT INTO makeup VALUES(8, "brushes","clinque",219,298);
+INSERT INTO makeup VALUES(9,"primer","smashbox",50,92);
+INSERT INTO makeup VALUES(10,"sponge","NARS",165,500);
+INSERT INTO makeup VALUES(11,"bronzer","benefit cosmetic",45,237);
+INSERT INTO makeup VALUES(12,"lip liner","este laurder",56,346);
+INSERT INTO makeup VALUES(13,"lip pencil","urban decay",456,209);
+INSERT INTO makeup VALUES(14,"lipstick","sephora",34,789);
+INSERT INTO makeup VALUES(15,"lipgloss","bare minerals",3,600);
+
+show databse ordered by price
+SELECT * FROM makeup ORDER BY price;
+
+show the quantity of all products 
+SELECT name, SUM (quantity) FROM makeup GROUP BY name;
