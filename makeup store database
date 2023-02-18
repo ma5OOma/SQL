@@ -19,7 +19,7 @@ INSERT INTO makeup VALUES(13,"lip pencil","urban decay",8,709);
 INSERT INTO makeup VALUES(14,"lipstick","sephora",6,789);
 INSERT INTO makeup VALUES(15,"lipgloss","bare minerals",3,600);
 
-show databse ordered by price
+show database ordered by price
 SELECT * FROM makeup ORDER BY price;
 
 show the quantity of all products 
