@@ -1,0 +1,82 @@
+/* Table about the name and gender of celebrities */
+CREATE TABLE celebrities (id INTEGER PRIMARY KEY,
+first_name TEXT,
+last_name TEXT,
+gender TEXT);
+
+INSERT into celebrities VALUES (1,'Rihanna', 'Fenty', 'Female');
+INSERT into celebrities VALUES (2, 'Miley', 'Cirus', 'Female');
+INSERT into celebrities VALUES (3, 'Jennifer', 'Lopez','female');
+INSERT into celebrities VALUES (4, 'Kanye', 'West', 'male');
+INSERT into celebrities VALUES (5, 'Harry', 'Styles', 'male');
+INSERT into celebrities VALUES (6, 'Adele', 'Adkin', 'female');
+INSERT into celebrities VALUES (7, 'Billie', 'Elish', 'female');
+INSERT into celebrities VALUES (8, 'justin', 'Bieber', 'male');
+INSERT into celebrities VALUES (9, 'Hailey', 'Bieber', 'female');
+INSERT into celebrities VALUES (10, 'Austin', 'Butler', 'male');
+INSERT into celebrities VALUES (11, 'Jenna', 'Ortegga', 'female');
+
+/* Table displaying some information about celecbrities*/
+CREATE TABLE fun_facts (id INTEGER PRIMARY KEY, 
+profession TEXT, 
+net_worth INTEGER, 
+twitter_followers TEXT);
+
+INSERT into fun_facts VALUES (1, 'singer', '1700000000','108000000');
+INSERT into fun_facts VALUES (2, 'singer', '160000000', '46000000');
+INSERT into fun_facts VALUES (3, 'actor', '400000000', '45000000');
+INSERT into fun_facts VALUES (4, 'rapper', '400000000', 'NULL');
+INSERT into fun_facts VALUES (5, 'singer', '120000000', '38000000');
+INSERT into fun_facts VALUES (6, 'singer','220000000', '270000000');
+INSERT into fun_facts VALUES (7, 'singer', '300000000', '7000000');
+INSERT into fun_facts VALUES (8, 'singer', '400000000', '113000000');
+INSERT into fun_facts VALUES (9, 'model', '20000000', 'NULL');
+INSERT into fun_facts VALUES (10, 'actor', '4000000', 'NULL');
+/*Table displaying opinion on celebrities*/
+CREATE Table opinion (id INTEGER PRIMARY KEY,
+impression TEXT);
+
+INSERT into opinion VALUES (1, 'liked');
+INSERT into opinion VALUES (2, 'disliked');
+INSERT into opinion VALUES (3, 'liked');
+INSERT into opinion VALUES (4, 'disliked');
+INSERT into opinion VALUES (5, 'liked');
+INSERT into opinion VALUES (6, 'disliked');
+INSERT into opinion VALUES (7, 'liked');
+INSERT into opinion VALUES (8, 'disliked');
+INSERT into opinion VALUES (9, 'liked');
+INSERT into opinion VALUES (10, 'disliked');
+INSERT into opinion VALUES (11, 'liked');
+
+/* Inner join to display all columns*/
+SELECT * FROM celebrities JOIN fun_facts ON celebrities.id = fun_facts.id;
+
+/* Inner join to display certain columns*/
+Select celebrities.first_name, celebrities.last_name, celebrities.gender, fun_facts.profession FROM celebrities JOIN fun_facts ON celebrities.id = fun_facts.id;
+
+/* Inner join with a condition*/
+Select celebrities.first_name, celebrities.last_name, celebrities.gender, fun_facts.profession FROM celebrities JOIN fun_facts ON celebrities.id = fun_facts.id WHERE gender= 'female';
+
+/*Outer Join to display certain columns*/
+SELECT celebrities.first_name, celebrities.last_name, fun_facts.profession FROM celebrities LEFT OUTER JOIN fun_facts ON celebrities.id = fun_facts.id;
+
+/*Outer join with a condition*/
+SELECT celebrities.first_name, celebrities.last_name, fun_facts.profession FROM celebrities LEFT OUTER JOIN fun_facts ON celebrities.id = fun_facts.id ORDER BY last_name;
+
+/* Self join*/
+SELECT celebrities.first_name, celebrities.last_name, buddies.gender FROM celebrities JOIN celebrities buddies ON celebrities.id =buddies.id; 
+
+/*Combining multiple joins*/
+SELECT first_name, last_name, profession, impression FROM celebrities JOIN fun_facts ON celebrities.id=fun_facts.id JOIN opinion on celebrities.id=opinion.id;
+
+/*Able to retrieve information about celebrities, examples shown below*/
+
+/*Show the names of celebrities that are married to each other*/
+SELECT first_name as married FROM celebrities WHERE last_name in (SELECT last_name FROM celebrities GROUP BY last_name HAVING COUNT(last_name ) > 1
+);
+
+/* Show the celebrities from the highest net worth to the lowest*/
+SELECT celebrities.first_name, fun_facts.net_worth FROM celebrities JOIN fun_facts ON celebrities.id = fun_facts.id ORDER BY net_worth desc;
+
+/* Display the names of all the singers*/
+SELECT first_name FROM celebrities JOIN fun_facts ON celebrities.id=fun_facts.id WHERE profession = 'singer'
