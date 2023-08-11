@@ -1,0 +1,27 @@
+/* A database called Chinook was downloaded and queried*/
+/*It is a digital media store and includes tables for artists, albums, media tracks, invoices, and customers.*/
+
+/*Show Customers (their full names, customer ID, and country) who are not in the US.*/
+SELECT customerId, FirstName, LastName, Country FROM chinook.customers WHERE Country <>'US';
+
+/*Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.*/
+SELECT c.FirstName, LastName, i.Invoiceid, i.InvoiceDate, i.BillingAddress
+FROM chinook.customers c
+LEFT JOIN chinook.invoices i
+ON c.CustomerId = i.CustomerId
+WHERE c.country = 'Brazil';
+
+/*Show the Employees who are Sales Agents.*/
+SELECT FirstName, LastName FROM chinook.employees WHERE Title = 'Sales Support Agent';
+
+/*Find a unique list of billing countries from the Invoice table.*/
+SELECT distinct BillingCountry FROM chinook.invoices;
+
+/*Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.*/
+SELECT * FROM chinook.employees WHERE Title = 'Sales Support Agent';
+SELECT * FROM chinook.customers;
+SELECT e.FirstName, e.LastName, c.SupportRepId, e.EmployeeId
+FROM chinook.customers c
+LEFT JOIN chinook.employees e
+ON c.SupportRepId = e.EmployeeId
+WHERE e.Title = 'Sales Support Agent';
